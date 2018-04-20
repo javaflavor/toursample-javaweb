@@ -48,6 +48,7 @@
         ${lib.dir}/terasoluna-taglibex-1.1.1.jar;
         ${lib.dir}/terasoluna-thin-2.0.6.2.jar;
         ${lib.dir}/terasoluna-web-cr-1.1.1.jar;
+    	${additional_classpath};
         ${webapsvr.lib.dir}/servlet-api.jar;
         ${webapsvr.lib.dir}/jsp-api.jar" />
 
@@ -88,17 +89,18 @@
     <!-- =================================
           ビルドする。
        ================================= -->
-    <target name="build" depends="compile, native2ascii" description="ビルド実行" />
+    <target name="build" depends="compile, native2ascii" description="ビルド実行">
+    	<mkdir dir="${basedir}/target"/>
+        <delete file="${basedir}/target/${context.name}.war" failonerror="false" />
+        <jar jarfile="${basedir}/target/${context.name}.war" basedir="./webapps" />
+    </target>
 
     <!-- =================================
           プロジェクトのデプロイを行う。
        ================================= -->
     <target name="deploy" depends="build" description="デプロイ実行">
         <delete file="${deploy.dir}/${context.name}.war" failonerror="false" />
-        <delete file="${context.name}.war" failonerror="false" />
-        <jar jarfile="${context.name}.war" basedir="./webapps" />
-        <copy file="${context.name}.war" todir="${deploy.dir}" />
-        <delete file="${context.name}.war" failonerror="false" />
+        <copy file="${basedir}/target/${context.name}.war" todir="${deploy.dir}" />
     </target>
 
     <!-- =================================
