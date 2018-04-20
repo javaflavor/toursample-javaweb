@@ -32,10 +32,11 @@
 							<goal>run</goal>
 						</goals>
 						<configuration>
-							<tasks>
+							<target>
 								<property name="additional_classpath" refid="maven.compile.classpath" />
 								<ant antfile="${basedir}/ant/build.xml" target="build" />
-							</tasks>
+								<move file="${basedir}/target/toursample-javaweb.war" tofile="${basedir}/target/ROOT.war"/>
+							</target>
 						</configuration>
 					</execution>
 					<execution>
@@ -45,9 +46,9 @@
 							<goal>run</goal>
 						</goals>
 						<configuration>
-							<tasks>
+							<target>
 								<ant antfile="${basedir}/ant/build.xml" target="clean" />
-							</tasks>
+							</target>
 						</configuration>
 					</execution>
 				</executions>
