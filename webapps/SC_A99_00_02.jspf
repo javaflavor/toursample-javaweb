@@ -1,0 +1,20 @@
+<%--
+@(#)SC_A99_00_02.jspf
+Copyright (C) 2007, 2010 NTT DATA Corporation. All Rights Reserved.:
+Description : フッタを表示する
+
+
+--%>
+
+<%@ page contentType="text/html; charset=Windows-31J" language="java" pageEncoding="Windows-31J" %>
+
+<!-- begin footer-->
+      <div class="com-footer-panel">
+        <span class="com-footer-logo-text">Copyright (C) 2007, 2010</span>
+        <a href="http://www.nttdata.co.jp/" title="NTT&nbsp;DATA&nbsp;CORPORATION" target="newpage">
+          <span class="com-footer-logo-text">NTT DATA CORPORATION</span>
+        </a>
+      </div>
+<!-- end footer -->
+    </div>
+  </body>

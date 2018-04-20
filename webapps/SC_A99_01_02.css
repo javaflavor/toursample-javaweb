@@ -1,0 +1,51 @@
+/* システム名の配置を指定する。 */
+#title-panel {
+  padding: 20px;
+}
+
+
+/* システム名テキストのスタイルを指定する。 */
+#title-text {
+  font-size: x-large;
+  text-align: center;
+}
+
+
+/* ログイン入力フォームの配置を指定する。 */
+#login-table {
+  text-align: left;
+}
+
+
+/* 顧客ID入力フォームのスタイルを指定する。 */
+#userid-field {
+  height: 18px;
+  width: 150px;
+}
+
+
+/* パスワード入力フォームのスタイルを指定する。 */
+#password-field {
+  height: 18px;
+  width: 150px;
+}
+
+
+/* ログインボタンの配置を指定する。 */
+#login-form-button-area {
+  text-align: center;
+}
+
+
+/* 非顧客向け案内メッセージ部のスタイルを指定する。 */
+.no-user-message-panel {
+  text-align: center;
+  width: 600px;
+}
+
+
+/* 非顧客向け案内メッセージ部の<p>のスタイルを指定する。 */
+.no-user-message-panel p {
+  margin: 5px;
+}
+

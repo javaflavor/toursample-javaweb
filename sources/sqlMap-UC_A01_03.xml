@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- SqlMap定義 -->            
+<sqlMap namespace="UC_A01_03">
+
+    <!-- 最大催行人数を取得 -->
+    <select id="selectAvaRecMaxForUpdate"
+            parameterClass="jp.terasoluna.toursample.uc_a01_03.blogic.SelectNumberOfPersonInput"
+            resultClass="java.lang.Integer">
+        SELECT AVA_REC_MAX
+        FROM   TOURINFO
+        WHERE
+               TOUR_CODE  = #tourCode#
+        FOR
+               UPDATE
+    </select>
+
+    <!-- ツアーの変更予約以外の予約人数を取得 -->
+    <select id="selectTotalReserveCount" 
+            parameterClass="jp.terasoluna.toursample.uc_a01_03.blogic.SelectNumberOfPersonInput"
+            resultClass="java.lang.Integer">
+        SELECT SUM(ADULT_COUNT + CHILD_COUNT)
+        FROM   RESERVE
+        WHERE  
+               TOUR_CODE   = #tourCode#
+          AND  RESERVE_NO != #reserveNo#
+    </select>
+
+    <!-- 予約情報を更新 -->
+    <update id="updateReserve"
+            parameterClass="jp.terasoluna.toursample.uc_a01_03.blogic.UpdateReserveInput">
+        UPDATE RESERVE
+        SET    ADULT_COUNT = #adultCount#,
+               CHILD_COUNT = #childCount#,
+               SUM_PRICE   = #sumPrice#,
+               REMARKS     = #remarks#
+        WHERE
+               RESERVE_NO  = #reserveNo#
+    </update>
+
+    <select id="selectTransfer"
+            parameterClass="jp.terasoluna.toursample.uc_a01_03.dto.RP_A01_03_02_01Input"
+            resultClass="java.lang.Boolean">
+        SELECT
+            TRANSFER
+        FROM
+            RESERVE
+        WHERE
+            RESERVE_NO = #reserveNo#
+    </select>
+</sqlMap>

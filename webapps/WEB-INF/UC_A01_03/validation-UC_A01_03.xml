@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<!-- 入力値検証定義 -->
+<form-validation>
+
+  <formset>
+  
+		<form name="/RP_A01_03_01_02BL">
+		    <!-- ご意見ご要望の入力チェック -->
+	      <field property="reserveDetail.remarks"
+	             depends="maxlength">
+	        <arg key="ご意見ご要望" resource="false" position="0" />
+	        <arg key="${var:maxlength}" resource="false" position="1" />
+	        <var>
+	        	<var-name>maxlength</var-name>
+	        	<var-value>80</var-value>
+	        </var>
+	      </field>
+	      
+	      <field property="reserveDetail.adultCount"
+                   depends="required, intRange">
+               <arg key="人数(大人)" resource="false" position="0" />
+               <arg key="${var:min}" resource="false" position="1" />
+               <arg key="${var:max}" resource="false" position="2" />
+               <var>
+                   <var-name>min</var-name>
+                   <var-value>1</var-value>
+               </var>
+               <var>
+                   <var-name>max</var-name>
+                   <var-value>5</var-value>
+               </var>
+           </field>
+
+           <field property="reserveDetail.childCount"
+                   depends="required, intRange">
+               <arg key="人数(子ども)" resource="false" position="0"/>
+               <arg key="${var:min}" resource="false" position="1"/>
+               <arg key="${var:max}" resource="false" position="2"/>
+               <var>
+                   <var-name>min</var-name>
+                   <var-value>0</var-value>
+               </var>
+               <var>
+                   <var-name>max</var-name>
+                   <var-value>5</var-value>
+               </var>
+           </field>
+		</form>
+		
+  </formset>
+  
+</form-validation>

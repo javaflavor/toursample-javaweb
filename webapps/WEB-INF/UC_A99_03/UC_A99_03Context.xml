@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- モジュール固有のBean定義 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+  <!-- 顧客登録画面へのForwardAction -->
+  <bean name="/UC_A99_03/SC_A99_03_01SCR" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.ForwardAction" />
+  
+  <!-- 顧客登録確認画面へのForwardAction -->
+  <bean name="/UC_A99_03/SC_A99_03_02SCR" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.ForwardAction" />
+    
+  <!-- 顧客登録確認画面のDispatchAction -->
+  <bean name="/UC_A99_03/SC_A99_03_02DSP" scope="singleton"
+  	    class="jp.terasoluna.fw.web.struts.actions.DispatchAction">
+    <property name="saveToken" value="false"/>  
+  </bean>
+  
+  <!-- 顧客登録のBLogicAction -->
+  <bean name="/UC_A99_03/RP_A99_03_02_01BL" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.BLogicAction">
+    <property name="businessLogic" ref="rp_a99_03_02_01BLogic"/>
+    <property name="tokenCheck" value="true"/>
+  </bean>
+  
+  <!-- 顧客登録のBLogic -->
+  <bean id="rp_a99_03_02_01BLogic" scope="singleton"
+  			class="jp.terasoluna.toursample.uc_a99_03.blogic.RP_A99_03_02_01BLogicImpl">
+  	<property name="queryDAO"  ref="queryDAO"/>		
+    <property name="updateDAO" ref="updateDAO"/>
+  </bean>
+  			
+  <!-- 顧客登録完了画面へのForwardAction -->
+  <bean name="/UC_A99_03/SC_A99_03_03SCR" scope="singleton"
+  	    class="jp.terasoluna.fw.web.struts.actions.ForwardAction"/>
+  
+  <!-- スイッチ -->
+  <bean name="/UC_A99_03/switchAction" scope="singleton"
+        class="org.apache.struts.actions.SwitchAction"/>
+</beans>  

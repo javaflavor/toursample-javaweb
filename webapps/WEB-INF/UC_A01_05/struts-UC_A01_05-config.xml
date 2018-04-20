@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+  
+<!-- ======================================== フォームビーン定義 -->
+  <form-beans>
+    <form-bean name="_uc_a01_05Form"
+               type="jp.terasoluna.toursample.uc_a01_05.form.UC_A01_05Form" />
+  </form-beans>
+  
+<!-- ======================================== グローバル例外ハンドリング定義 -->
+  <global-exceptions>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.fw.web.struts.action.SystemExceptionHandler"
+               type="jp.terasoluna.fw.exception.SystemException" >
+      <set-property property="module" value="/"/>
+    </exception>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.toursample.common.exception.DataAccessExceptionHandler"
+               type="org.springframework.dao.DataAccessException">
+      <set-property property="module" value="/"/>
+    </exception>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.toursample.common.exception.ApplicationExceptionHandler"
+               type="jp.terasoluna.toursample.common.exception.TourSystemException" >
+      <set-property property="module" value="/"/>
+    </exception>
+  </global-exceptions>
+  
+<!-- ======================================== アクションマッピング定義 -->
+  <action-mappings type="jp.terasoluna.fw.web.struts.action.ActionMappingEx">
+  <!-- BLogic Action -->
+    <!-- ツアー予約情報出力帳票リクエスト(RP_A01_05_01_01) -->
+    <action name="_uc_a01_05Form" path="/RP_A01_05_01_01Action" scope="session">
+        <!-- exception -->
+        <exception
+            className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+            handler="jp.terasoluna.toursample.common.exception.ApplicationExceptionHandler"
+            key="error.common.00008" path="/SC_A99_00_03SCR.do" type="jp.terasoluna.toursample.common.exception.RecordNotFoundException">
+            <set-property property="module" value="/"/>
+        </exception>
+    </action>
+  </action-mappings>
+  
+<!-- ======================================== コントローラ定義 -->
+
+  <controller
+    processorClass="jp.terasoluna.fw.web.struts.action.RequestProcessorEx"/>
+
+<!-- ======================================== メッセージリソース定義 -->
+
+  <message-resources
+    factory="jp.terasoluna.fw.web.struts.action.PropertyMessageResourcesExFactory"
+    parameter="UC_A01_05-messages" />
+
+<!-- ======================================== プラグイン定義 -->
+  <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+    <set-property property="contextConfigLocation"
+      value="/WEB-INF/UC_A01_05/UC_A01_05Context.xml"/>
+  </plug-in>
+  
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property
+      property="pathnames"
+      value="/WEB-INF/validator-rules.xml,/WEB-INF/validator-rules-ex.xml"/>
+    <set-property
+      property="stopOnFirstError"
+      value="false"/>
+  </plug-in>
+</struts-config>

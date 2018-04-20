@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- SqlMap定義 -->
+<sqlMap namespace="common">
+
+    <select id="selectAgeRate"
+            parameterClass="java.lang.String"
+            resultClass="java.lang.Integer">
+        SELECT AGE_RATE AS value FROM AGE WHERE AGE_CODE = #value#
+    </select>
+
+    <select id="selectReserveDetail"
+            parameterClass="jp.terasoluna.toursample.common.dto.ReserveDetailAcquireInput"
+            resultClass="jp.terasoluna.toursample.common.dto.ReserveDetailAcquireOutput">
+        SELECT RESERVE.RESERVED_DAY       AS  reservedDay,
+               RESERVE.ADULT_COUNT        AS  adultCount,
+               RESERVE.CHILD_COUNT        AS  childCount,
+               RESERVE.TRANSFER           AS  transfer,
+               RESERVE.REMARKS            AS  remarks,
+               TOURINFO.TOUR_CODE         AS  tourCode,
+               TOURINFO.TOUR_NAME         AS  tourName,
+               TOURINFO.TOUR_DAYS         AS  intTourDays,
+               TOURINFO.DEP_DAY           AS  depDay,
+               TOURINFO.BASE_PRICE        AS  basePrice,
+               TOURINFO.CONDUCTOR         AS  conductor,
+               TOURINFO.TOUR_ABS          AS  tourAbs,
+               DEPARTURE.DEP_NAME         AS  depName,
+               ARRIVAL.ARR_NAME           AS  arrName,
+               ACCOMMODATION.ACCOM_NAME   AS  accomName,
+               ACCOMMODATION.ACCOM_TEL    AS  accomTel
+        FROM   (((
+               RESERVE LEFT JOIN TOURINFO ON RESERVE.TOUR_CODE = TOURINFO.TOUR_CODE)
+               LEFT JOIN DEPARTURE ON TOURINFO.DEP_CODE = DEPARTURE.DEP_CODE)
+               LEFT JOIN ARRIVAL ON TOURINFO.ARR_CODE = ARRIVAL.ARR_CODE)
+               LEFT JOIN ACCOMMODATION ON TOURINFO.ACCOM_CODE = ACCOMMODATION.ACCOM_CODE
+        WHERE
+               RESERVE.RESERVE_NO     =  #reserveNo# AND
+               RESERVE.CUSTOMER_CODE  =  #customerCode#
+    </select>
+
+    <select id="selectTourDetail"
+            parameterClass="java.lang.String"
+            resultClass="jp.terasoluna.toursample.common.dto.TourDetailAcquireOutput">
+        SELECT TOURINFO.TOUR_NAME         AS  tourName,
+               TOURINFO.TOUR_DAYS         AS  intTourDays,
+               TOURINFO.DEP_DAY           AS  depDay,
+               TOURINFO.BASE_PRICE        AS  basePrice,
+               TOURINFO.CONDUCTOR         AS  conductor,
+               TOURINFO.TOUR_ABS          AS  tourAbs,
+               DEPARTURE.DEP_NAME         AS  depName,
+               ARRIVAL.ARR_NAME           AS  arrName,
+               ACCOMMODATION.ACCOM_NAME   AS  accomName,
+               ACCOMMODATION.ACCOM_TEL    AS  accomTel
+        FROM   ((
+               TOURINFO LEFT JOIN DEPARTURE ON TOURINFO.DEP_CODE = DEPARTURE.DEP_CODE)
+               LEFT JOIN ARRIVAL ON TOURINFO.ARR_CODE = ARRIVAL.ARR_CODE)
+               LEFT JOIN ACCOMMODATION ON TOURINFO.ACCOM_CODE = ACCOMMODATION.ACCOM_CODE
+        WHERE
+               TOURINFO.TOUR_CODE  =  #value#
+    </select>
+
+    <select id="selectUserInfo"
+            parameterClass="jp.terasoluna.toursample.common.dto.SelectUserInfoInput"
+            resultClass="jp.terasoluna.toursample.common.TourUVO">
+        SELECT CUSTOMER_CODE   AS  customerCode,
+               CUSTOMER_NAME   AS  customerName,
+               CUSTOMER_KANA   AS  customerKana,
+               CUSTOMER_BIRTH  AS  customerBirth,
+               CUSTOMER_JOB    AS  customerJob,
+               CUSTOMER_MAIL   AS  customerMail,
+               CUSTOMER_TEL    AS  customerTel,
+               CUSTOMER_POST   AS  customerPost,
+               CUSTOMER_ADD    AS  customerAdd
+        FROM CUSTOMER
+        WHERE CUSTOMER_CODE = #customerCode# AND
+              CUSTOMER_PASS = #customerPass#
+    </select>
+
+</sqlMap>

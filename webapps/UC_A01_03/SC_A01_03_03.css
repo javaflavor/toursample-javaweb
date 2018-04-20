@@ -1,0 +1,9 @@
+/* <div>のbuttonスタイルを指定する */
+div.button{
+  text-align: right;
+}
+
+/* 支払期限テキストのスタイルを指定する*/
+#paymentTimeLimit-text{
+  color: #FF0000;
+}

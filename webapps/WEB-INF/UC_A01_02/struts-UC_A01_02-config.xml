@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+  
+<!-- ======================================== フォームビーン定義 -->
+  <form-beans>
+    <form-bean name="_uc_a01_02Form"
+               type="jp.terasoluna.toursample.uc_a01_02.form.UC_A01_02Form" />
+  </form-beans>
+  
+<!-- ======================================== グローバル例外ハンドリング定義 -->
+  <global-exceptions>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.fw.web.struts.action.SystemExceptionHandler"
+               type="jp.terasoluna.fw.exception.SystemException" >
+      <set-property property="module" value="/"/>
+    </exception>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.toursample.common.exception.DataAccessExceptionHandler"
+               type="org.springframework.dao.DataAccessException">
+      <set-property property="module" value="/"/>
+    </exception>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.toursample.common.exception.ApplicationExceptionHandler"
+               type="jp.terasoluna.toursample.common.exception.TourSystemException" >
+      <set-property property="module" value="/"/>
+    </exception>
+  </global-exceptions>
+  
+<!-- ======================================== アクションマッピング定義 -->
+  <action-mappings type="jp.terasoluna.fw.web.struts.action.ActionMappingEx">
+  <!-- BLogic Action -->
+    <!-- ツアー予約照会一覧取得リクエスト(RP_A01_02_01_01) -->
+    <action name="_uc_a01_02Form" path="/RP_A01_02_01_01BL" scope="session">
+        <set-property property="cancelPopulate" value="true" />
+        <!-- success -->
+        <forward name="success" path="/SC_A01_02_01SCR.do"/>
+    </action>
+    <!-- ツアー予約照会詳細取得リクエスト(RP_A01_02_01_02) -->
+    <action name="_uc_a01_02Form" path="/RP_A01_02_01_02BL" scope="session">
+        <!-- exception -->
+        <exception
+            className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+            handler="jp.terasoluna.toursample.common.exception.ApplicationExceptionHandler"
+            key="error.common.00008" path="/SC_A99_00_03SCR.do" type="jp.terasoluna.toursample.common.exception.RecordNotFoundException">
+            <set-property property="module" value="/"/>
+        </exception>
+        <!-- success -->
+        <forward name="success" path="/SC_A01_02_02SCR.do"/>
+    </action>
+    
+  <!-- Forward Action -->
+    <!-- ツアー予約照会画面(SC_A01_02_01)への遷移 -->
+    <action path="/SC_A01_02_01SCR">
+        <set-property property="cancelPopulate" value="true" />
+        <forward module="/UC_A01_02" name="success" path="/SC_A01_02_01.jsp"/>
+    </action>
+    <!-- ツアー予約詳細画面(SC_A01_02_02)への遷移 -->
+    <action path="/SC_A01_02_02SCR">
+        <set-property property="cancelPopulate" value="true" />   
+        <forward module="/UC_A01_02" name="success" path="/SC_A01_02_02.jsp"/>
+    </action>
+    
+  <!-- Dispatch Action -->
+    <!-- ツアー予約照会画面(SC_A01_02_01)からの処理分岐 -->
+    <action name="_uc_a01_02Form" path="/SC_A01_02_01DSP" scope="session">
+        <set-property property="cancelPopulate" value="true" />
+        <forward name="details" path="/RP_A01_02_01_02BL.do"/>
+        <forward module="/UC_A01_03" name="change" path="/RP_A01_03_01_01BL.do"/>
+        <forward module="/UC_A01_04" name="cancel" path="/RP_A01_04_01_01BL.do"/>
+        <forward name="default" path="/SC_A01_02_01SCR.do"/>
+    </action>
+    <!-- ツアー予約詳細画面(SC_A01_02_02)からの処理分岐 -->
+    <action name="_uc_a01_02Form" path="/SC_A01_02_02DSP" scope="session">
+        <set-property property="cancelPopulate" value="true" />
+        <forward name="reservationList" path="/RP_A01_02_01_01BL.do"/>
+        <forward module="/UC_A01_03" name="change" path="/RP_A01_03_01_01BL.do"/>
+        <forward module="/UC_A01_04" name="cancel" path="/RP_A01_04_01_01BL.do"/>
+        <forward module="/UC_A01_05" name="downloadPDF" path="/RP_A01_05_01_01Action.do"/>
+        <forward name="default" path="/SC_A01_02_02SCR.do"/>
+    </action>
+    
+    <!-- スイッチ -->
+    <action path="/switchAction" name="_uc_a01_02Form" scope="session">
+        <set-property property="cancelPopulate" value="true" />
+    </action>
+  </action-mappings>
+
+<!-- ======================================== コントローラ定義 -->
+
+  <controller
+    processorClass="jp.terasoluna.fw.web.struts.action.RequestProcessorEx"/>
+
+<!-- ======================================== メッセージリソース定義 -->
+
+  <message-resources
+    factory="jp.terasoluna.fw.web.struts.action.PropertyMessageResourcesExFactory"
+    parameter="UC_A01_02-messages" />
+
+
+<!-- ======================================== プラグイン定義 -->
+  <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+    <set-property property="contextConfigLocation"
+      value="/WEB-INF/UC_A01_02/UC_A01_02Context.xml"/>
+  </plug-in>
+  
+  <plug-in className="jp.terasoluna.fw.web.struts.plugins.BLogicIOPlugIn">
+      <set-property property="resources" value="/WEB-INF/UC_A01_02/blogic-UC_A01_02-io.xml"/>
+      <set-property property="digesterRules" value="/WEB-INF/blogic-io-rules.xml"/>
+      <set-property property="mapperClass" value="jp.terasoluna.fw.service.thin.BLogicMapper"/>
+  </plug-in>
+  
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property
+      property="pathnames"
+      value="/WEB-INF/validator-rules.xml,/WEB-INF/validator-rules-ex.xml"/>
+    <set-property
+      property="stopOnFirstError"
+      value="false"/>
+  </plug-in>
+</struts-config>

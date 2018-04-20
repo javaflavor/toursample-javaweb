@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+<!-- ======================================== フォームビーン定義 -->
+  
+  <form-beans>
+    <form-bean name="_uc_a99_03Form"
+               type="jp.terasoluna.toursample.uc_a99_03.form.UC_A99_03Form" />
+  </form-beans>
+
+<!-- ======================================== グローバル例外ハンドリング定義 -->
+
+  <global-exceptions>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.fw.web.struts.action.SystemExceptionHandler"
+               type="jp.terasoluna.fw.exception.SystemException" >
+      <set-property property="module" value="/"/>
+    </exception>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.toursample.common.exception.DataAccessExceptionHandler"
+               type="org.springframework.dao.DataAccessException">
+      <set-property property="module" value="/"/>
+    </exception>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.toursample.common.exception.ApplicationExceptionHandler"
+               type="jp.terasoluna.toursample.common.exception.TourSystemException" >
+      <set-property property="module" value="/"/>
+    </exception>
+  </global-exceptions>
+  
+<!-- ======================================== グローバルフォワード定義 -->
+  
+  <global-forwards>
+    <forward name="txtoken-error" module="/"
+             path="/RP_A99_00_03_02Action.do"/>
+  </global-forwards>
+    
+<!-- ======================================== アクションマッピング定義 -->
+  
+  <action-mappings type="jp.terasoluna.fw.web.struts.action.ActionMappingEx">
+    
+    <!--=====================================================================-->
+    <!-- 画面遷移 -->
+    <!--=====================================================================-->
+    
+    <!-- 顧客登録画面へ遷移するForwardAction -->
+    <action path="/SC_A99_03_01SCR"
+      			name="_uc_a99_03Form"
+      			scope="session">
+      <set-property property="cancelPopulate" value="true" />
+      <forward name="success" path="/SC_A99_03_01.jsp" />
+    </action>
+  
+    <!-- 顧客登録確認画面へ遷移するForwardAction -->  
+    <action path="/SC_A99_03_02SCR"
+      			name="_uc_a99_03Form"
+      			input="/SC_A99_03_01SCR.do"
+      			scope="session"
+      			validate="true">		
+      <forward name="success" path="/SC_A99_03_02.jsp" />
+    </action>
+    
+    <!-- 顧客登録確認画面へ遷移するDispatchAction -->
+    <action path="/SC_A99_03_02DSP"
+      			name="_uc_a99_03Form"
+      			scope="session">
+      <set-property property="cancelPopulate" value="true" />
+      <forward name="returnInput"  path="/SC_A99_03_01SCR.do" />
+      <forward name="registerUser" path="/RP_A99_03_02_01BL.do" />
+      <forward name="default"      path="/SC_A99_03_02SCR.do" />
+    </action>
+    
+    <!-- 新規顧客へ登録するBLogicAction -->
+    <action path="/RP_A99_03_02_01BL"
+      			name="_uc_a99_03Form"
+      			scope="session">
+      <set-property property="cancelPopulate" value="true" />	
+      <forward name="success" path="/SC_A99_03_03SCR.do" />
+    </action>
+    
+    <!-- 顧客登録画面へ遷移するForwardAction -->
+    <action path="/SC_A99_03_03SCR"
+      			name="_uc_a99_03Form"
+      			scope="session">
+      <set-property property="cancelPopulate" value="true" />		
+      <forward name="success" path="/SC_A99_03_03.jsp" />
+    </action>
+    
+    <!-- スイッチ -->
+    <action path="/switchAction" 
+            name="_uc_a99_03Form" 
+            scope="session">
+            <set-property property="cancelPopulate" value="true" />
+    </action>
+    
+  </action-mappings>
+  
+<!-- ======================================== コントローラ定義 -->
+  
+  <controller
+    processorClass="jp.terasoluna.fw.web.struts.action.RequestProcessorEx"/>
+
+<!-- ======================================== メッセージリソース定義 -->
+
+  <message-resources
+    factory="jp.terasoluna.fw.web.struts.action.PropertyMessageResourcesExFactory"
+    parameter="UC_A99_03-messages" />
+    
+<!-- ======================================== プラグイン定義 -->
+
+  <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+    <set-property property="contextConfigLocation"
+                  value="/WEB-INF/UC_A99_03/UC_A99_03Context.xml"/>
+  </plug-in>
+
+  <plug-in className="jp.terasoluna.fw.web.struts.plugins.BLogicIOPlugIn">
+	  <set-property property="resources" value="/WEB-INF/UC_A99_03/blogic-UC_A99_03-io.xml"/>
+	  <set-property property="digesterRules" value="/WEB-INF/blogic-io-rules.xml"/>
+	  <set-property property="mapperClass"
+	                value="jp.terasoluna.fw.service.thin.BLogicMapper"/>
+  </plug-in>
+
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property property="pathnames"
+                  value="/WEB-INF/validator-rules.xml,/WEB-INF/validator-rules-ex.xml,/WEB-INF/UC_A99_03/validation-UC_A99_03.xml"/>
+    <set-property property="stopOnFirstError"
+                  value="false"/>
+  </plug-in>
+      
+</struts-config>

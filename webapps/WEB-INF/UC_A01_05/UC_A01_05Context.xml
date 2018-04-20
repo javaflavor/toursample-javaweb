@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- モジュール固有のBean定義 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+  <!-- 共通定義のインポート -->
+    <import resource="../commonContext.xml"/>
+  
+  <!-- BLogic Action -->
+    <!-- ツアー予約情報出力帳票リクエスト(RP_A01_05_01_01) -->
+    <bean name="/UC_A01_05/RP_A01_05_01_01Action" scope="singleton"
+          class="jp.terasoluna.toursample.uc_a01_05.action.RP_A01_05_01_01Action">
+      <property name="rp_a01_05_01_01BLogic" ref="rp_a01_05_01_01BLogic"/>
+    </bean>
+    <!-- ツアー予約情報出力帳票リクエストのビジネスロジック(RP_A01_05_01_01) -->
+    <bean id="rp_a01_05_01_01BLogic" scope="singleton"
+          class="jp.terasoluna.toursample.uc_a01_05.blogic.RP_A01_05_01_01BLogicImpl">
+      <property name="reserveDetailAcquireBLogic" ref="reserveDetailAcquireCommonLogic"/>
+      <property name="priceCalculateBLogic" ref="priceCalculateCommonLogic"/>
+    </bean>
+</beans>

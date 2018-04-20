@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- SqlMap定義 -->
+<sqlMap namespace="UC_A01_04">
+
+    <select id="selectTransfer"
+            parameterClass="jp.terasoluna.toursample.uc_a01_04.dto.RP_A01_04_01_02Input"
+            resultClass="java.lang.Boolean">
+        SELECT
+            TRANSFER
+        FROM
+            RESERVE
+        WHERE
+            RESERVE_NO = #reserveNo#
+    </select>
+
+    <delete id="deleteReserve"
+            parameterClass="jp.terasoluna.toursample.uc_a01_04.dto.RP_A01_04_01_02Input">
+        DELETE
+        FROM
+            RESERVE
+        WHERE
+            RESERVE_NO = #reserveNo# AND
+            CUSTOMER_CODE = #USER_VALUE_OBJECT.customerCode#
+    </delete>
+</sqlMap>

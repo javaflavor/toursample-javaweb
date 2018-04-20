@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- SqlMap定義 -->
+<sqlMap namespace="UC_A01_02">
+
+    <select id="selectReservationInfo"
+            parameterClass="jp.terasoluna.toursample.uc_a01_02.dto.SelectReservationInfoInput"
+            resultClass="jp.terasoluna.toursample.uc_a01_02.dto.SelectReservationInfoOutput">
+        SELECT RESERVE.RESERVE_NO         AS  reserveNo,
+               RESERVE.ADULT_COUNT        AS  adultCount,
+               RESERVE.CHILD_COUNT        AS  childCount,
+               RESERVE.TRANSFER           AS  transfer,
+               RESERVE.SUM_PRICE          AS  sumPrice,
+               TOURINFO.TOUR_NAME         AS  tourName,
+               TOURINFO.TOUR_DAYS         AS  intTourDays,
+               TOURINFO.DEP_DAY           AS  depDay,
+               DEPARTURE.DEP_NAME         AS  depName,
+               ARRIVAL.ARR_NAME           AS  arrName
+        FROM   ((
+               RESERVE LEFT JOIN TOURINFO ON RESERVE.TOUR_CODE = TOURINFO.TOUR_CODE)
+               LEFT JOIN DEPARTURE ON TOURINFO.DEP_CODE = DEPARTURE.DEP_CODE)
+               LEFT JOIN ARRIVAL ON TOURINFO.ARR_CODE = ARRIVAL.ARR_CODE
+        WHERE
+               RESERVE.CUSTOMER_CODE = #customerCode# AND
+               TRUNC(TOURINFO.DEP_DAY) <![CDATA[>=]]> TRUNC(#today#)
+
+        ORDER BY
+               TOURINFO.DEP_DAY ASC,
+               RESERVE.RESERVE_NO ASC
+    </select>
+
+</sqlMap>

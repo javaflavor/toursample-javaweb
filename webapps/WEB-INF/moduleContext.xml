@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+<!-- モジュール固有のBean定義 -->
+
+    <!-- 共通定義のインポート -->
+    <import resource="commonContext.xml"/>
+
+<!-- ======================================== アクション・業務ロジック定義 -->
+  <!-- アクション定義 -->
+
+  <!-- エラー画面(SC_A99_00_03)への遷移 -->
+  <bean name="/SC_A99_00_03SCR" scope="singleton"
+          class="jp.terasoluna.fw.web.struts.actions.ForwardAction" />
+
+  <!-- メニュー画面(SC_A99_01_01)への遷移 -->
+   <bean name="/SC_A99_01_01SCR" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.ForwardAction" />
+
+  <!-- メニュー画面(SC_A99_01_01)からの処理分岐 -->
+  <bean name="/SC_A99_01_01DSP" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.DispatchAction" />
+
+  <!-- ログイン画面(SC_A99_01_02)への遷移 -->
+  <bean name="/SC_A99_01_02SCR" scope="singleton"
+         class="jp.terasoluna.fw.web.struts.actions.ForwardAction" />
+
+  <!-- 顧客ログインリクエスト(RP_A99_01_02_02) -->
+  <bean name="/RP_A99_01_02_02BL" scope="singleton"
+        class="jp.terasoluna.toursample.uc_a99_01.action.RP_A99_01_02_02Action">
+      <property name="rp_a99_01_02_02BLogic" ref="rp_a99_01_02_02BLogic" />
+  </bean>
+
+  <!-- 顧客ログインリクエストのビジネスロジック(RP_A99_01_02_02) -->
+  <bean id="rp_a99_01_02_02BLogic" scope="singleton"
+        class="jp.terasoluna.toursample.uc_a99_01.blogic.RP_A99_01_02_02BLogicImpl">
+      <property name="queryDAO" ref="queryDAO" />
+  </bean>
+
+  <!-- 顧客ログアウトリクエスト(RP_A99_01_01_02) -->
+  <bean name="/RP_A99_01_01_02Action" scope="singleton"
+        class="jp.terasoluna.toursample.uc_a99_02.action.RP_A99_01_01_02Action" />
+		  
+  <!-- トランザクショントークンチェックエラーメッセージ設定リクエスト(RP_A99_00_03_02) -->
+  <bean name="/RP_A99_00_03_02Action" scope="singleton"
+        class="jp.terasoluna.toursample.common.action.SetErrorCodeAction">
+  	<property name="messageKey" value="error.common.00009" />
+  </bean>
+
+  <!-- ログイン済みチェックエラーメッセージ設定リクエスト(RP_A99_00_03_03) -->
+  <bean name="/RP_A99_00_03_03Action" scope="singleton"
+        class="jp.terasoluna.toursample.common.action.SetErrorCodeAction">
+  	<property name="messageKey" value="warn.common.00001" />
+  </bean>
+
+  <!-- 404エラー発生のエラーメッセージ設定リクエスト(RP_A99_00_03_04) -->
+  <bean name="/RP_A99_00_03_04Action" scope="singleton"
+        class="jp.terasoluna.toursample.common.action.SetErrorCodeAction">
+  	<property name="messageKey" value="warn.common.00002" />
+  </bean>
+
+  <!-- 想定外エラー発生のエラーメッセージ設定リクエスト(RP_A99_00_03_05) -->
+  <bean name="/RP_A99_00_03_05Action" scope="singleton"
+        class="jp.terasoluna.toursample.common.action.SetErrorCodeAction">
+  	<property name="messageKey" value="error.common.00006" />
+  </bean>
+
+  <!-- スイッチ -->
+  <bean name="/switchAction" class="org.apache.struts.actions.SwitchAction"/>
+   
+</beans>

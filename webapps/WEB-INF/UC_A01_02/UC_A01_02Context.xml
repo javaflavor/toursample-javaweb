@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- モジュール固有のBean定義 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+  <!-- 共通定義のインポート -->
+    <import resource="../commonContext.xml"/>
+    
+  <!-- Dispatch Action -->
+    <!-- ツアー予約照会画面(SC_A01_02_01)からの処理分岐 -->
+    <bean name="/UC_A01_02/SC_A01_02_01DSP" scope="singleton"
+          class="jp.terasoluna.fw.web.struts.actions.DispatchAction"/>
+    <!-- ツアー予約詳細画面(SC_A01_02_02)からの処理分岐 -->
+    <bean name="/UC_A01_02/SC_A01_02_02DSP" scope="singleton"
+          class="jp.terasoluna.fw.web.struts.actions.DispatchAction"/>
+        
+  <!-- Forward Action -->
+    <!-- ツアー予約照会画面(SC_A01_02_01)への遷移 -->
+    <bean name="/UC_A01_02/SC_A01_02_01SCR" scope="singleton"
+          class="jp.terasoluna.fw.web.struts.actions.ForwardAction"/>
+    <!-- ツアー予約詳細画面(SC_A01_02_02)への遷移 -->
+    <bean name="/UC_A01_02/SC_A01_02_02SCR" scope="singleton"
+          class="jp.terasoluna.fw.web.struts.actions.ForwardAction"/>
+        
+  <!-- BLogic Action -->
+    <!-- ツアー予約照会一覧取得リクエスト(RP_A01_02_01_01) -->
+    <bean name="/UC_A01_02/RP_A01_02_01_01BL" scope="singleton"
+          class="jp.terasoluna.fw.web.struts.actions.BLogicAction">
+        <property name="businessLogic" ref="rp_a01_02_01_01BLogic"/>
+    </bean>
+    <!-- ツアー予約照会一覧取得リクエストのビジネスロジック(RP_A01_02_01_01) -->
+    <bean id="rp_a01_02_01_01BLogic" scope="singleton"
+          class="jp.terasoluna.toursample.uc_a01_02.blogic.RP_A01_02_01_01BLogicImpl">
+        <property name="queryDAO" ref="queryDAO"/>
+    </bean>
+    <!-- ツアー予約照会詳細取得リクエスト(RP_A01_02_01_02) -->
+    <bean name="/UC_A01_02/RP_A01_02_01_02BL" scope="singleton"
+          class="jp.terasoluna.fw.web.struts.actions.BLogicAction">
+        <property name="businessLogic" ref="rp_a01_02_01_02BLogic"/>
+    </bean>
+    <!-- ツアー予約照会詳細取得リクエストのビジネスロジック(RP_A01_02_01_02) -->
+    <bean id="rp_a01_02_01_02BLogic" scope="singleton"
+          class="jp.terasoluna.toursample.uc_a01_02.blogic.RP_A01_02_01_02BLogicImpl">
+        <property name="reserveDetailAcquireBLogic" ref="reserveDetailAcquireCommonLogic"/>
+        <property name="priceCalculateBLogic" ref="priceCalculateCommonLogic"/>
+    </bean>
+    
+  <!-- スイッチ -->
+    <bean name="/UC_A01_02/switchAction"
+          class="org.apache.struts.actions.SwitchAction"/>
+    
+</beans>

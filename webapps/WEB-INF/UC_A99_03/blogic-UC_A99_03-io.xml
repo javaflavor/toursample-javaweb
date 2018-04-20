@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE blogic-io PUBLIC "-//NTTDATA//DTD TERASOLUNA for Spring blogic-io 1.0//JA"
+                           "../dtd/blogic-io.dtd">
+<!-- ビジネスロジック入出力定義 -->
+<blogic-io>
+
+  <!-- 顧客登録アクション -->
+  <action path="/RP_A99_03_02_01BL">
+    <blogic-params bean-name="jp.terasoluna.toursample.uc_a99_03.dto.RP_A99_03_02_01Input">
+      <!-- 登録画面からの入力値 -->
+      <set-property property="customerKana"       source="form" />
+      <set-property property="customerName"       source="form" />
+      <set-property property="customerBirthYear"  source="form" />
+      <set-property property="customerBirthMonth" source="form" />
+      <set-property property="customerBirthDay"   source="form" />
+      <set-property property="customerJob"        source="form" />
+      <set-property property="customerMail"       source="form" />
+      <set-property property="customerTel"        source="form" />
+      <set-property property="customerPost"       source="form" />
+      <set-property property="customerAdd"        source="form" />
+      <set-property property="customerPass"       source="form" />
+    </blogic-params>
+    
+    <blogic-result>
+      <!-- 新規顧客ＩＤ -->   
+      <set-property property="customerCode" dest="form" />
+    </blogic-result>
+  </action>
+
+</blogic-io>

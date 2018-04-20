@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+<!-- ======================================== フォームビーン定義 -->
+  <form-beans>
+    <form-bean name="_commonForm"
+        type="jp.terasoluna.fw.web.struts.form.DynaValidatorActionFormEx" >
+      <form-property name="customerCode" type="java.lang.String"/>
+      <form-property name="customerPass" type="java.lang.String"/>
+      <form-property name="returnCode" type="java.lang.String"/>
+      <form-property name="tourCode" type="java.lang.String"/>
+    </form-bean>
+  </form-beans>
+
+
+<!-- ======================================== グローバル例外ハンドリング定義 -->
+  <global-exceptions>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.fw.web.struts.action.SystemExceptionHandler"
+               type="jp.terasoluna.fw.exception.SystemException" >
+    </exception>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.toursample.common.exception.DataAccessExceptionHandler"
+               type="org.springframework.dao.DataAccessException">
+    </exception>
+    <exception key="error.common.00006"
+               path="/SC_A99_00_03SCR.do"
+               className="jp.terasoluna.fw.web.struts.action.ExceptionConfigEx"
+               handler="jp.terasoluna.toursample.common.exception.ApplicationExceptionHandler"
+               type="jp.terasoluna.toursample.common.exception.TourSystemException" >
+    </exception>
+  </global-exceptions>
+
+
+<!-- ======================================== グローバルフォワード定義 -->
+  <global-forwards>
+    <forward name="welcome"
+             path="/SC_A99_01_01SCR.do" redirect="true"/>
+    <forward name="txtoken-error"
+             path="/RP_A99_00_03_02Action.do"/>
+  </global-forwards>
+
+<!-- ======================================== アクションマッピング定義 -->
+  <action-mappings type="jp.terasoluna.fw.web.struts.action.ActionMappingEx">
+
+    <!-- エラー画面(SC_A99_00_03)への遷移 -->
+    <action path="/SC_A99_00_03SCR"
+            name="_commonForm"
+            scope="session">
+       <set-property property="cancelPopulate" value="true" />
+       <forward name="success" path="/SC_A99_00_03.jsp"/>
+    </action>
+
+    <!-- メニュー画面(SC_A99_01_01)への遷移 -->
+    <action path="/SC_A99_01_01SCR"
+            name="_commonForm"
+            scope="session">
+       <set-property property="cancelPopulate" value="true" />
+       <forward name="success" path="/SC_A99_01_01.jsp"/>
+    </action>
+
+    <!-- メニュー画面(SC_A99_01_01)からの処理分岐 -->
+    <action path="/SC_A99_01_01DSP"
+            name="_commonForm"
+            scope="session">
+       <set-property property="cancelPopulate" value="true" />
+       <forward name="search" module="/UC_A01_01" path="/SC_A01_01_01SCR.do"/>
+       <forward name="login" path="/SC_A99_01_02SCR.do"/>
+       <forward name="registerUser" module="/UC_A99_03" path="/SC_A99_03_01SCR.do"/>
+       <forward name="reference" module="/UC_A01_02" path="/RP_A01_02_01_01BL.do"/>
+       <forward name="default" path="/SC_A99_01_01SCR.do"/>
+    </action>
+    
+    <!-- ログイン画面(SC_A99_01_02)への遷移 -->
+    <action path="/SC_A99_01_02SCR"
+            name="_commonForm"
+            scope="session">
+       <forward name="success" path="/SC_A99_01_02.jsp"/>
+    </action>
+    
+    <!-- 顧客ログインリクエスト(RP_A99_01_02_02) -->
+    <action path="/RP_A99_01_02_02BL"
+            name="_commonForm"
+            validate="true"
+            input="/SC_A99_01_02SCR.do"
+            scope="session">           
+       <forward name="success" path="/SC_A99_01_01SCR.do"/>
+       <forward name="returnSC_A01_01_02" module="/UC_A01_01" path="/RP_A01_01_02_03BL.do"/>
+       <forward name="failure" path="/SC_A99_01_02SCR.do"/>
+       <forward name="default" path="/SC_A99_01_01SCR.do"/>
+    </action>
+    
+    <!-- 顧客ログアウトリクエスト(RP_A99_01_01_02) -->
+    <action path="/RP_A99_01_01_02Action"
+            name="_commonForm"
+            scope="session"
+            parameter="/SC_A99_01_01SCR.do">
+            <set-property property="cancelPopulate" value="true" />
+    </action>
+    <!-- トランザクショントークンチェックエラーメッセージ設定リクエスト(RP_A99_00_03_02) -->
+    <action path="/RP_A99_00_03_02Action"
+            name="_commonForm"
+            scope="session">
+       <set-property property="cancelPopulate" value="true" />
+       <forward name="success" path="/SC_A99_00_03SCR.do"/>
+    </action>
+
+    <!-- ログイン済みチェックエラーメッセージ設定リクエスト(RP_A99_00_03_03) -->
+    <action path="/RP_A99_00_03_03Action"
+            name="_commonForm"
+            scope="session">
+       <set-property property="cancelPopulate" value="true" />
+       <forward name="success" path="/SC_A99_00_03SCR.do"/>
+    </action>
+
+    <!-- 404エラー発生のエラーメッセージ設定リクエスト(RP_A99_00_03_04) -->
+    <action path="/RP_A99_00_03_04Action"
+            name="_commonForm"
+            scope="session">
+       <set-property property="cancelPopulate" value="true" />
+       <forward name="success" path="/SC_A99_00_03SCR.do"/>
+    </action>    
+
+    <!-- 想定外エラー発生のエラーメッセージ設定リクエスト(RP_A99_00_03_05) -->
+    <action path="/RP_A99_00_03_05Action"
+            name="_commonForm"
+            scope="session">
+       <set-property property="cancelPopulate" value="true" />
+       <forward name="success" path="/SC_A99_00_03SCR.do"/>
+    </action>
+
+    <!-- スイッチ -->
+    <action path="/switchAction" name="_commonForm" scope="session">
+        <set-property property="cancelPopulate" value="true" />
+    </action>
+  </action-mappings>
+
+
+<!-- ======================================== コントローラ定義 -->
+  <controller processorClass="jp.terasoluna.fw.web.struts.action.RequestProcessorEx"/>
+
+
+<!-- ======================================== メッセージリソース定義 -->
+  <message-resources
+    factory="jp.terasoluna.fw.web.struts.action.PropertyMessageResourcesExFactory"
+    parameter="default-messages" />
+
+<!-- ======================================== プラグイン定義 -->
+  <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+    <set-property property="contextConfigLocation"
+                  value="/WEB-INF/moduleContext.xml"/>
+  </plug-in>
+
+  <plug-in className="jp.terasoluna.fw.web.struts.plugins.ResetterPlugIn">
+    <set-property
+      property="resetter"
+      value="jp.terasoluna.fw.web.struts.reset.ResetterImpl"/>
+    <set-property
+      property="resources"
+      value="/WEB-INF/reset.xml"/>
+    <set-property
+      property="digesterRules"
+      value="/WEB-INF/reset-rules.xml"/>
+  </plug-in>
+
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property
+      property="pathnames"
+      value="/WEB-INF/validator-rules.xml,/WEB-INF/validator-rules-ex.xml,/WEB-INF/validation.xml"/>
+    <set-property
+      property="stopOnFirstError"
+      value="true"/>
+  </plug-in>
+
+  <plug-in className="jp.terasoluna.fw.web.struts.plugins.BLogicIOPlugIn">
+    <set-property
+      property="resources"
+      value="/WEB-INF/blogic-io.xml"/>
+    <set-property
+      property="digesterRules"
+      value="/WEB-INF/blogic-io-rules.xml"/>
+    <set-property
+      property="mapperClass"
+      value="jp.terasoluna.fw.service.thin.BLogicMapper"/>
+  </plug-in>
+
+</struts-config>

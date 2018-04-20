@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE blogic-io PUBLIC "-//NTTDATA//DTD TERASOLUNA for Spring blogic-io 1.0//JA"
+                           "dtd/blogic-io.dtd">
+<!-- ビジネスロジック入出力定義 -->
+<blogic-io>
+
+    <!-- 顧客ログインリクエスト(RP_A99_01_02_02) -->
+	<action path="/RP_A99_01_02_02BL">
+		<blogic-params bean-name="jp.terasoluna.toursample.uc_a99_01.dto.RP_A99_01_02_02Input">
+			<set-property property="customerCode" source="form" />
+			<set-property property="customerPass" source="form" />
+			<set-property property="returnCode" source="form" />
+			<set-property property="tourCode" source="form" />
+		</blogic-params>
+		<blogic-result>
+			<set-property property="USER_VALUE_OBJECT" blogic-property="uvo" dest="session" />
+		</blogic-result>
+	</action>
+
+</blogic-io>

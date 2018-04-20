@@ -1,0 +1,20 @@
+/* テーブルのスタイルを指定する。 */
+.menu-visible-table {
+  border-collapse: collapse;
+  border-spacing: 0px;
+  border: 3px ridge;
+  height: 100px;
+}
+
+/* テーブル中の<th>のスタイルを指定する。 */
+.menu-visible-table th {
+  padding: 10px 20px 10px 30px;
+  width: 150px;
+}
+
+/* テーブル中の<td>のスタイルを指定する。 */
+.menu-visible-table td {
+  padding: 10px 20px 10px 20px;
+  width: 500px;
+  text-align: left;
+}

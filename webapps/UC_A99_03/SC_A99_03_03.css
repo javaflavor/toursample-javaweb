@@ -1,0 +1,40 @@
+/*<th>のスタイルを指定する*/
+th{
+  width: 200px;
+}
+
+/*<p>のスタイルを指定する*/
+p{
+  align: center;
+}
+
+/*<div>のbuttonスタイルを指定する*/
+div.button{
+  text-align: right;
+}
+
+/*"新規顧客ID"テキストのスタイルを指定する*/
+#userid-text {
+	font-size: 25pt;
+	color: #ff0000;
+}
+
+/*”パスワード”テキストのスタイルを指定する*/
+#password-text {
+	font-size: 8pt;
+	text-align: left;
+}
+
+/*"Eメール"テキストのスタイルを指定する*/
+#customer-email-td{
+  text-align: left;
+  width: 600px;
+  word-break: break-all;
+}
+
+/*"住所"テキストのスタイルを指定する*/
+#customerAdd-text{
+  text-align: left;
+  width: 600px;
+  word-break: break-all;
+}

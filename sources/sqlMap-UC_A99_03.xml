@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- SqlMap定義 -->            
+<sqlMap namespace="UC_A99_03">
+
+    <!-- 新規顧客IDを生成 Oracle用 -->
+    <select id="selectCustomerCode" 
+            resultClass="jp.terasoluna.toursample.uc_a99_03.dto.RP_A99_03_02_01Output">
+        SELECT TO_CHAR(CUSTOMER_CODE_SEQ.NEXTVAL,'FM00000000') AS customerCode
+        FROM   DUAL
+    </select>
+
+    <!-- 新規顧客を登録 -->
+    <insert id="insertCustomer" 
+            parameterClass="jp.terasoluna.toursample.uc_a99_03.dto.RP_A99_03_02_01Input">
+        INSERT INTO CUSTOMER (CUSTOMER_CODE,
+                              CUSTOMER_NAME,
+                              CUSTOMER_KANA,
+                              CUSTOMER_PASS,
+                              CUSTOMER_BIRTH,
+                              CUSTOMER_JOB,
+                              CUSTOMER_MAIL,
+                              CUSTOMER_TEL,
+                              CUSTOMER_POST,
+                              CUSTOMER_ADD)
+                    VALUES (#customerCode#,
+                            #customerName#,
+                            #customerKana#,
+                            #customerPass#,
+                            TO_DATE(#customerBirth#),
+                            #customerJob#,
+                            #customerMail#,
+                            #customerTel#,
+                            #customerPost#,
+                            #customerAdd#)
+    </insert>
+
+</sqlMap>

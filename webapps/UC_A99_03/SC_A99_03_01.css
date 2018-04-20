@@ -1,0 +1,50 @@
+/*<th>のスタイルを指定する。*/
+th{
+  width: 200px;
+}
+
+/*<p>のスタイルを指定する*/
+p{
+  align: center;
+}
+
+
+/*"フリガナ"テキストボックスのスタイルを指定する*/
+#customerKana-textbox{
+  width: 260px;
+}
+
+/*"氏名"テキストボックスのスタイルを指定する*/
+#customerName-textbox{
+  width: 260px;
+}
+
+/*"職業"テキストボックスのスタイルを指定する*/
+#customerJob-textbox{
+  width: 260px;
+}
+
+/*"Eメール"テキストボックスのスタイルを指定する*/
+#customerMail-textbox{
+  width: 260px;
+}
+
+/*"電話番号"テキストボックスのスタイルを指定する*/
+#customerTel-textbox{
+  width: 120px;
+}
+
+/*"郵便番号"テキストボックスのスタイルを指定する*/
+#customerPost-textbox{
+  width: 60px;
+}
+
+/*"住所"テキストボックスのスタイルを指定する*/
+#customerAdd-textbox{
+  width: 600px;
+}
+
+/*"パスワード"テキストボックスのスタイルを指定する*/
+#customerPass-textbox{
+  width: 120px;
+}

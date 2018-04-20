@@ -1,0 +1,6 @@
+/* 「メニュー画面に戻る」ボタンの配置を指定する。 */
+#menu-return-button-panel {
+  margin-top: 15px;
+  margin-left: 10px;
+  float: center;
+}

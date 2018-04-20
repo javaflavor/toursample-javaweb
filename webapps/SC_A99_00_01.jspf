@@ -1,0 +1,82 @@
+<%--
+@(#)SC_A99_00_01.jspf
+Copyright (C) 2007, 2010 NTT DATA Corporation. All Rights Reserved.:
+Description : ヘッダを表示する
+
+
+--%>
+
+<%@ page contentType="text/html; charset=Windows-31J" language="java" pageEncoding="Windows-31J" %>
+<%@ taglib uri="/struts-html" prefix="html"%>
+<%@ taglib uri="/struts-bean" prefix="bean"%>
+<%@ taglib uri="/struts-logic" prefix="logic"%>
+<%@ taglib uri="/terasoluna" prefix="t"%>
+<%@ taglib uri="/terasoluna-struts" prefix="ts"%>
+<%@ taglib uri="/common" prefix="common"%>
+
+<bean:define id="cssCommonFileName" scope="page" value="stylesheet/common.css"/>
+<bean:define id="cssMainFileName" scope="page" value="stylesheet/main.css"/>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS"/>
+    <meta http-equiv="Content-Style-Type" CONTENT="text/css"/>
+    <title><%= jp.terasoluna.fw.util.PropertyUtil.getProperty("system.name", "ツアー予約システム")%></title>
+    <bean:page id="requestObj" property="request"/>
+    <bean:define id="contextPath" name="requestObj" property="contextPath" />
+    <link href="<bean:write name='contextPath' />/<bean:write name='cssCommonFileName' scope='page'/>" rel="stylesheet" type="text/css" media="screen,print"/>
+    <link href="<bean:write name='contextPath' />/<bean:write name='cssMainFileName' scope='page'/>" rel="stylesheet" type="text/css" media="screen,print"/>
+    <logic:notEmpty name="cssFileName" scope="page">
+    <link href="<bean:write name='contextPath' />/<bean:write name='cssFileName' scope='page'/>" rel="stylesheet" type="text/css" media="screen,print"/>
+    </logic:notEmpty>
+  </head>
+  
+  <body>
+    <div class="com-root-panel">
+<!-- begin header-->
+      <div class="com-header-info-panel">
+		<div class="com-header-user-panel">
+        <br/>
+        <logic:empty name="USER_VALUE_OBJECT" scope="session">
+        ログインしていません。
+        </logic:empty>
+        <logic:notEmpty name="USER_VALUE_OBJECT" scope="session">
+        会員名：<bean:write name="USER_VALUE_OBJECT" property="customerName" />（会員ID：<bean:write name="USER_VALUE_OBJECT" property="customerCode" />）
+        </logic:notEmpty>
+        </div>
+        <div class="com-header-button-panel">
+          <table id="button-table" summary="ヘッダメニューフォームレイアウト用">
+ 		    <tr>
+            <logic:notMatch name="menuButtonFlag" value="true" scope="page">
+		    <td>
+            <ts:form action="/switchAction.do?prefix=&amp;page=/SC_A99_01_01SCR.do" styleClass="com-header-button-form">
+            <p>
+              <ts:submit value="メニュー画面に戻る" styleClass="com-long-button"/>
+            </p>
+            </ts:form>
+		    </td>
+            </logic:notMatch>
+            <logic:empty name="USER_VALUE_OBJECT" scope="session">
+            <logic:notMatch name="loginButtonFlag" value="true" scope="page">
+		    <td>
+            <ts:form action="/switchAction.do?prefix=&amp;page=/SC_A99_01_02SCR.do" styleClass="com-header-button-form">
+            <p>
+              <ts:submit value="ログインする" styleClass="com-long-button"/>
+            </p>
+            </ts:form>
+		    </td>
+            </logic:notMatch>
+            </logic:empty>
+            <logic:notEmpty name="USER_VALUE_OBJECT" scope="session">
+		    <td>
+            <ts:form action="/switchAction.do?prefix=&amp;page=/RP_A99_01_01_02Action.do" styleClass="com-header-button-form">
+            <p>
+              <ts:submit value="ログアウトする" styleClass="com-long-button"/>
+            </p>
+            </ts:form>
+		    </td>
+            </logic:notEmpty>
+		    </tr>
+	      </table>
+        </div>
+      </div>
+<!-- end header-->

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE blogic-io PUBLIC "-//NTTDATA//DTD TERASOLUNA for Spring blogic-io 1.0//JA"
+                           "../dtd/blogic-io.dtd">
+<!-- ビジネスロジック入出力定義 -->
+<blogic-io>
+
+  <action path="/RP_A01_01_01_02BL">
+    <blogic-params bean-name="jp.terasoluna.toursample.uc_a01_01.dto.RP_A01_01_01_02Input">
+      <set-property property="arrCodeCondition"     source="form" />
+      <set-property property="depCodeCondition"     source="form" />
+      <set-property property="depDayYearCondition"  source="form" />
+      <set-property property="depDayMonthCondition" source="form" />
+      <set-property property="depDayDayCondition"   source="form" />
+      <set-property property="tourDaysCondition"    source="form" />
+      <set-property property="adultCountCondition"  source="form" />
+      <set-property property="childCountCondition"  source="form" />
+      <set-property property="basePriceCondition"   source="form" />     
+      <set-property property="startIndex"			source="form" />                            
+    </blogic-params>
+    <blogic-result>
+      <set-property property="tourInfoList"          dest="form" />
+      <set-property property="allListInfoLineCount"  dest="form" />
+    </blogic-result> 
+  </action>
+   
+  <action path="/RP_A01_01_01_02_01BL">
+    <blogic-result>
+      <set-property property="tourInfoList"          dest="form" />
+      <set-property property="allListInfoLineCount"  dest="form" />
+    </blogic-result> 
+  </action>
+  
+  <action path="/RP_A01_01_01_03BL">
+    <blogic-params bean-name="jp.terasoluna.toursample.uc_a01_01.dto.RP_A01_01_01_03Input">
+      <set-property property="tourCode"               source="form" />
+      <set-property property="adultCountCondition"    source="form" />
+      <set-property property="childCountCondition"    source="form" />              
+      <set-property property="USER_VALUE_OBJECT"     source="session" />
+    </blogic-params>
+    <blogic-result>
+      <set-property property="remarks"			 dest="form" />
+      <set-property property="tourDetail"	     dest="form" />
+      <set-property property="priceOutput"	     dest="form" />
+    </blogic-result>
+  </action>
+  
+  <action path="/RP_A01_01_01_04BL">
+    <blogic-params bean-name="jp.terasoluna.toursample.uc_a01_01.dto.RP_A01_01_01_02Input">
+      <set-property property="arrCodeCondition"     source="form" />
+      <set-property property="depCodeCondition"     source="form" />
+      <set-property property="depDayYearCondition"  source="form" />
+      <set-property property="depDayMonthCondition" source="form" />
+      <set-property property="depDayDayCondition"   source="form" />
+      <set-property property="tourDaysCondition"    source="form" />
+      <set-property property="adultCountCondition"  source="form" />
+      <set-property property="childCountCondition"  source="form" />
+      <set-property property="basePriceCondition"   source="form" />     
+      <set-property property="startIndex"			source="form" />     
+      <set-property property="row"       			source="form" />                         
+    </blogic-params>
+    <blogic-result>
+      <set-property property="tourInfoList"          dest="form" />
+      <set-property property="allListInfoLineCount"  dest="form" />
+    </blogic-result> 
+  </action>
+  
+  <action path="/RP_A01_01_02_02BL">
+    <blogic-params bean-name="jp.terasoluna.toursample.uc_a01_01.dto.RP_A01_01_02_02Input">
+      <set-property property="tourCode"                       source="form" />
+      <set-property property="arrCodeCondition"               source="form" />
+      <set-property property="depCodeCondition"               source="form" />
+      <set-property property="depDayYearCondition"            source="form" />
+      <set-property property="depDayMonthCondition"           source="form" />
+      <set-property property="depDayDayCondition"             source="form" />
+      <set-property property="tourDaysCondition"              source="form" />
+      <set-property property="adultCountCondition"            source="form" />
+      <set-property property="childCountCondition"            source="form" />
+      <set-property property="basePriceCondition"             source="form" />
+      <set-property property="startIndex"					  source="form" />
+      <set-property property="row"							  source="form" />
+    </blogic-params>
+    <blogic-result>
+      <set-property property="condition"   dest="session" />
+    </blogic-result>
+  </action>
+
+  <action path="/RP_A01_01_02_03BL">
+    <blogic-params bean-name="jp.terasoluna.toursample.uc_a01_01.dto.RP_A01_01_02_03Input">
+      <set-property property="condition"                  source="session" />
+    </blogic-params>
+    <blogic-result>
+      <set-property property="tourCode"                   dest="form" />
+      <set-property property="arrCodeCondition"           dest="form" />
+      <set-property property="depCodeCondition"           dest="form" />
+      <set-property property="depDayYearCondition"        dest="form" />
+      <set-property property="depDayMonthCondition"       dest="form" />
+      <set-property property="depDayDayCondition"         dest="form" />
+      <set-property property="tourDaysCondition"          dest="form" />
+      <set-property property="adultCountCondition"        dest="form" />
+      <set-property property="childCountCondition"        dest="form" />
+      <set-property property="basePriceCondition"         dest="form" />
+      <set-property property="startIndex"				  dest="form" />
+      <set-property property="row"						  dest="form" />
+    </blogic-result>
+  </action>
+
+  <action path="/RP_A01_01_03_01BL">
+    <blogic-params bean-name="jp.terasoluna.toursample.uc_a01_01.dto.RP_A01_01_03_01Input">
+      <set-property property="tourCode"          source="form"/>
+      <set-property property="remarks"           source="form"/>
+      <set-property property="USER_VALUE_OBJECT" source="session"/>
+      <set-property property="priceOutput"       source="form"/>
+    </blogic-params>
+    <blogic-result>
+      <set-property property="reserveNo"          dest="form"/>
+      <set-property property="reservedDay"        dest="form"/>
+      <set-property property="paymentMethod"      dest="form"/>
+      <set-property property="paymentAccount"     dest="form"/>
+      <set-property property="paymentCompanyName" dest="form"/>
+      <set-property property="referenceName"      dest="form"/>
+      <set-property property="referenceTel"       dest="form"/>
+      <set-property property="referenceEmail"     dest="form"/>
+      <set-property property="paymentTimeLimit"   dest="form"/>
+      <set-property property="priceOutput"        dest="form"/>
+      <set-property property="tourDetail"         dest="form"/>
+    </blogic-result>
+  </action>
+
+  <action path="/RP_A01_01_04_01BL">
+    <blogic-result>
+      <set-property property="arrCodeCondition"     source="form" />
+      <set-property property="depCodeCondition"     source="form" />
+      <set-property property="depDayYearCondition"  source="form" />
+      <set-property property="depDayMonthCondition" source="form" />
+      <set-property property="depDayDayCondition"   source="form" />
+      <set-property property="tourDaysCondition"    source="form" />
+      <set-property property="adultCountCondition"  source="form" />
+      <set-property property="childCountCondition"  source="form" />
+      <set-property property="basePriceCondition"   source="form" />     
+      <set-property property="tourInfoList"          dest="form" />
+      <set-property property="allListInfoLineCount"  dest="form" />
+    </blogic-result> 
+  </action>
+
+</blogic-io>

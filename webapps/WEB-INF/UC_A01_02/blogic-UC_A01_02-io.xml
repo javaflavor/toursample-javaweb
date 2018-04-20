@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE blogic-io PUBLIC "-//NTTDATA//DTD TERASOLUNA for Spring blogic-io 1.0//JA"
+                           "../dtd/blogic-io.dtd">
+<!-- ビジネスロジック入出力定義 -->
+<blogic-io>
+    <action path="/RP_A01_02_01_01BL">
+        <blogic-params bean-name="jp.terasoluna.toursample.uc_a01_02.dto.RP_A01_02_01_01Input">
+            <set-property property="USER_VALUE_OBJECT"   source="session"/>
+        </blogic-params>
+        <blogic-result>
+            <set-property property="reservationsCount"   dest="form"/>
+            <set-property property="reservationInfo"     dest="form"/>
+        </blogic-result>
+    </action>
+    <action path="/RP_A01_02_01_02BL">
+        <blogic-params bean-name="jp.terasoluna.toursample.uc_a01_02.dto.RP_A01_02_01_02Input">
+            <set-property property="reserveNo"           source="form"/>
+            <set-property property="USER_VALUE_OBJECT"   source="session"/>
+        </blogic-params>
+        <blogic-result>
+            <set-property property="reserveDetail"       dest="form"/>
+            <set-property property="price"               dest="form"/>
+            <set-property property="paymentMethod"       dest="form"/>
+            <set-property property="paymentCompanyName"  dest="form"/>
+            <set-property property="paymentAccount"      dest="form"/>
+            <set-property property="referenceName"       dest="form"/>
+            <set-property property="referenceEmail"      dest="form"/>
+            <set-property property="referenceTel"        dest="form"/>
+        </blogic-result>
+    </action>
+</blogic-io>

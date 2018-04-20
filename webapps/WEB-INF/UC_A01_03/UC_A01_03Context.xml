@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- モジュール固有のBean定義 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+  <!-- 共通定義のインポート -->
+  <import resource="../commonContext.xml"/>
+      
+  <!-- ツアー予約変更情報取得のBLogicAction -->
+  <bean name="/UC_A01_03/RP_A01_03_01_01BL" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.BLogicAction">
+    <property name="businessLogic" ref="rp_a01_03_01_01BLogic"/>
+  </bean>
+  
+  <!-- 予約情報取得のBLogic -->
+  <bean id="rp_a01_03_01_01BLogic" scope="singleton"
+  			class="jp.terasoluna.toursample.uc_a01_03.blogic.RP_A01_03_01_01BLogicImpl">		
+    <property name="reserveDetailAcquireBLogic"  ref="reserveDetailAcquireCommonLogic" />
+  </bean>
+  
+  <!-- ツアー予約変更画面へのForwardAction  -->
+  <bean name="/UC_A01_03/SC_A01_03_01SCR" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.ForwardAction"/>
+  
+  <!-- ツアー予約変更画面のDispatchAction -->
+  <bean name="/UC_A01_03/SC_A01_03_01DSP" scope="singleton"
+  	    class="jp.terasoluna.fw.web.struts.actions.DispatchAction"/>
+  
+  <!-- ツアー予約変更確認のBLogicAction -->
+  <bean name="/UC_A01_03/RP_A01_03_01_02BL" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.BLogicAction">
+    <property name="businessLogic" ref="rp_a01_03_01_02BLogic"/>
+  </bean>
+  
+  <!-- ツアー予約変更確認のBLogic -->
+  <bean id="rp_a01_03_01_02BLogic" scope="singleton"
+  			class="jp.terasoluna.toursample.uc_a01_03.blogic.RP_A01_03_01_02BLogicImpl">
+    <property name="reserveDetailAcquireBLogic"  ref="reserveDetailAcquireCommonLogic" />
+    <property name="priceCalculateBLogic" ref="priceCalculateCommonLogic" />
+  </bean>
+    
+  <!-- ツアー予約変更確認画面へのForwardAction  -->
+  <bean name="/UC_A01_03/SC_A01_03_02SCR" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.ForwardAction"/>
+        
+  <!-- ツアー予約変更確認画面のDispatchAction -->
+  <bean name="/UC_A01_03/SC_A01_03_02DSP" scope="singleton"
+  	    class="jp.terasoluna.fw.web.struts.actions.DispatchAction">
+    <property name="saveToken" value="false"/> 
+  </bean>
+      
+  <!-- ツアー予約変更確定のBLogicAction-->
+  <bean name="/UC_A01_03/RP_A01_03_02_01BL" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.BLogicAction">
+    <property name="businessLogic" ref="rp_a01_03_02_01BLogic"/>
+    <property name="tokenCheck" value="true"/>
+  </bean>
+  
+  <!-- ツアー予約変更確定のBLogic -->
+  <bean id="rp_a01_03_02_01BLogic" scope="singleton"
+  			class="jp.terasoluna.toursample.uc_a01_03.blogic.RP_A01_03_02_01BLogicImpl">
+  	<property name="queryDAO"  ref="queryDAO"/>		
+    <property name="updateDAO" ref="updateDAO"/>  			
+  </bean>
+
+  <!-- ツアー予約変更確定画面へのForwardAction  -->
+  <bean name="/UC_A01_03/SC_A01_03_03SCR" scope="singleton"
+        class="jp.terasoluna.fw.web.struts.actions.ForwardAction"/>
+
+  <!-- ツアー予約変更完了画面のDispatchAction -->
+  <bean name="/UC_A01_03/SC_A01_03_03DSP" scope="singleton"
+  	    class="jp.terasoluna.fw.web.struts.actions.DispatchAction"/>
+            	            
+  <!-- スイッチ -->
+  <bean name="/UC_A01_03/switchAction" scope="singleton"
+        class="org.apache.struts.actions.SwitchAction"/>
+                    	            
+</beans>  

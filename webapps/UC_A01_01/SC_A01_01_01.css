@@ -1,0 +1,66 @@
+/* 検索結果一覧の奇数行のツアー名が含まれるセルのスタイルを指定する。 */
+#tour-name-td-even {
+text-align: left;
+}
+
+/* 検索結果一覧の偶数行のツアー名が含まれるセルのスタイルを指定する。 */
+#tour-name-td-odd {
+background-color: #EAD5EA;
+text-align: left;
+}
+
+/* 検索条件の人数のスタイルを指定する。 */
+#search-condition-number {
+text-align: left;
+}
+
+/* 検索条件の基本料金のスタイルを指定する。 */
+#search-condition-charge {
+text-align: left;
+}
+
+/* ページリンクのスタイルを指定する。 */
+#pageLink{
+text-align: right;
+}
+
+/* 検索結果一覧の奇数行の項番が含まれるセルのスタイルを指定する。 */
+#no-position-td-even{
+text-align:center;
+}
+
+/* 検索結果一覧の偶数行の項番が含まれるセルのスタイルを指定する。 */
+#no-position-td-odd{
+background-color: #EAD5EA;
+text-align:center;
+}
+
+/* 検索結果一覧の奇数行の基本料金が含まれるセルのスタイルを指定する。 */
+#basePrice-position-td-even{
+text-align:right;
+}
+
+/* 検索結果一覧の偶数行の基本料金が含まれるセルのスタイルを指定する。 */
+#basePrice-position-td-odd{
+background-color: #EAD5EA;
+text-align:right;
+}
+
+/* ソート基準のスタイルを指定する。 */
+#sort-base-text {
+  font-weight: normal;
+  font-size: 75%;
+}
+
+/* ツアー予約登録説明部のスタイルを指定する。 */
+.entry-message-panel {
+  font-weight: bold;
+  text-align: left;
+  border: medium ridge;
+  padding: 10px;
+}
+
+/* ツアー予約登録説明部パネルの長さを指定する。 */
+#entry-message-panel {
+  width: 600px;
+}

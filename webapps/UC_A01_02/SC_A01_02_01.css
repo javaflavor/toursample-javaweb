@@ -1,0 +1,68 @@
+/* 予約照会ページのボタンサイズを指定する。 */
+.custom-long-button {
+  height: 20px;
+  width: 120px;
+}
+
+/* 予約一覧テーブルのキャプションのスタイルを指定する。 */
+#result-caption {
+  text-align: left;
+  font-weight: bold;
+}
+
+/* 予約一覧テーブルの項目名3文字欄のスタイルを指定する。 */
+#result-tour-3words {
+  text-align: center;
+  width: 55px;
+}
+
+/* 予約一覧テーブルの項目名4文字欄のスタイルを指定する。 */
+#result-tour-4words {
+  text-align: center;
+  width: 70px;
+}
+
+/* 予約一覧テーブルの項目名5文字欄のスタイルを指定する。 */
+#result-tour-5words {
+  text-align: center;
+  width: 85px;
+}
+
+/* 予約一覧テーブルの出発地欄のスタイルを指定する。 */
+#result-tour-date {
+  text-align: center;
+  width: 120px;
+}
+
+/* 予約一覧テーブルのボタン欄のスタイルを指定する。 */
+#result-button {
+  width: 125px;
+}
+
+/* 予約一覧テーブルの奇数行のスタイルを指定する。 */
+#index-td-even {
+  text-align: left;
+}
+
+/* 予約一覧テーブルの偶数のスタイルを指定する。 */
+#index-td-odd {
+  background-color: #EAD5EA;
+  text-align: left;
+}
+
+/* 予約一覧テーブルの奇数行合計料金欄のスタイルを指定する */
+#sum-price-even {
+  text-align: right;
+}
+
+/* 予約一覧テーブルの偶数行合計料金欄のスタイルを指定する */
+#sum-price-odd {
+  background-color: #EAD5EA;
+  text-align: right;  
+}
+
+/*テキスト並べ替え基準のスタイルを指定する。 */
+#sortrule-text {
+  font-weight: normal;
+  font-size: 75%;
+}

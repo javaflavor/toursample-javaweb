@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+<!-- ======================================== リスナ定義 -->
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/applicationContext.xml</param-value>
+  </context-param>
+
+<!-- ======================================== フィルタ定義 -->
+  <!-- 1. エンコーディングフィルタ -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>
+      org.springframework.web.filter.CharacterEncodingFilter
+    </filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>Windows-31J</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>false</param-value>
+    </init-param>
+  </filter>
+
+  <!-- 2. 拡張子直接アクセス禁止フィルタ -->
+  <filter>
+    <filter-name>extensionFilter</filter-name>
+    <filter-class>
+      jp.terasoluna.fw.web.thin.ExtensionFilter
+    </filter-class>
+  </filter>
+
+  <!-- 3. セッション同期化フィルタ -->
+  <filter>
+    <filter-name>sessionLockControlFilter</filter-name>
+    <filter-class>jp.terasoluna.fw.web.thin.SessionLockControlFilter</filter-class>
+    <!--
+    <init-param>
+      <param-name>interruptResponseCode</param-name>
+      <param-value>503</param-value>
+    </init-param>
+    <init-param>
+      <param-name>threshold</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    -->
+  </filter>
+
+  <!-- 4. ログイン済みチェックフィルタ -->
+  <filter>
+    <filter-name>authenticationController</filter-name>
+    <filter-class>
+      jp.terasoluna.fw.web.thin.AuthenticationControlFilter
+    </filter-class>
+    <init-param>
+     <param-name>controller</param-name>
+     <param-value>
+       tourAuthenticationController
+     </param-value>
+   </init-param>
+  </filter>
+
+  <!-- フィルタマッピング -->
+  <!-- 1. エンコーディングフィルタ -->
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- 2. 拡張子直接アクセス禁止フィルタ -->
+  <filter-mapping>
+    <filter-name>extensionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- 3. セッション同期化フィルタ -->
+  <filter-mapping>
+    <filter-name>sessionLockControlFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+
+  <!-- 4. ログイン済みチェックフィルタ -->
+  <filter-mapping>
+    <filter-name>authenticationController</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+<!-- ======================================== サーブレット定義 -->
+
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config/UC_A99_03</param-name>
+      <param-value>/WEB-INF/UC_A99_03/struts-UC_A99_03-config.xml</param-value>
+    </init-param>
+    <init-param>
+       <param-name>config/UC_A01_01</param-name>
+       <param-value>/WEB-INF/UC_A01_01/struts-UC_A01_01-config.xml</param-value>
+    </init-param>
+    <init-param>
+       <param-name>config/UC_A01_02</param-name>
+       <param-value>/WEB-INF/UC_A01_02/struts-UC_A01_02-config.xml</param-value>
+    </init-param>
+    <init-param>
+       <param-name>config/UC_A01_03</param-name>
+       <param-value>/WEB-INF/UC_A01_03/struts-UC_A01_03-config.xml</param-value>
+    </init-param>
+    <init-param>
+       <param-name>config/UC_A01_04</param-name>
+       <param-value>/WEB-INF/UC_A01_04/struts-UC_A01_04-config.xml</param-value>
+    </init-param>
+    <init-param>
+       <param-name>config/UC_A01_05</param-name>
+       <param-value>/WEB-INF/UC_A01_05/struts-UC_A01_05-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <init-param>
+      <param-name>detail</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!-- アクションサーブレットマッピング定義 -->
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <!-- ログイン済みチェックエラー発生時のエラー処理 -->
+  <error-page>
+    <exception-type>jp.terasoluna.fw.web.thin.UnauthenticatedException</exception-type>
+    <location>/RP_A99_00_03_03Action.do</location>
+  </error-page>
+
+  <!-- 想定外のエラー発生時のエラー処理 -->
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/RP_A99_00_03_05Action.do</location>
+  </error-page>
+
+  <!-- 404エラー発生時のエラー処理 -->
+  <error-page>
+    <error-code>404</error-code>
+    <location>/RP_A99_00_03_04Action.do</location>
+  </error-page>
+
+  <!-- 503エラー発生時のエラー処理 -->
+  <error-page>
+    <error-code>503</error-code>
+    <location>/SC_A99_00_03SCR.do</location>
+  </error-page>
+
+  <jsp-config>
+    <!-- Strutsタグ -->
+    <taglib>
+      <taglib-uri>/struts-bean</taglib-uri>
+      <taglib-location>/WEB-INF/tlds/struts-bean.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/struts-html</taglib-uri>
+      <taglib-location>/WEB-INF/tlds/struts-html.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/struts-logic</taglib-uri>
+      <taglib-location>/WEB-INF/tlds/struts-logic.tld</taglib-location>
+    </taglib>
+
+    <!-- TERASOLUNAカスタムタグ -->
+    <taglib>
+      <taglib-uri>/terasoluna</taglib-uri>
+      <taglib-location>/WEB-INF/tlds/terasoluna.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/terasoluna-struts</taglib-uri>
+      <taglib-location>/WEB-INF/tlds/terasoluna-struts.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/terasoluna-library</taglib-uri>
+      <taglib-location>/WEB-INF/tlds/terasoluna-library.tld</taglib-location>
+    </taglib>
+
+    <!-- ツアー予約システム用カスタムタグ -->
+    <taglib>
+      <taglib-uri>/common</taglib-uri>
+      <taglib-location>/WEB-INF/tlds/common.tld</taglib-location>
+    </taglib>
+
+  </jsp-config>
+</web-app>

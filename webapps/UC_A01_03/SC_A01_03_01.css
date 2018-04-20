@@ -1,0 +1,14 @@
+/* <div>のbuttonスタイルを指定する */
+div.button{
+  text-align: right;
+}
+.menu-message-panel {
+  text-align: left;
+  border: medium ridge;
+  padding: 10px;
+}
+
+/* メニュー画面説明部パネルの長さを指定する。 */
+#menu-message-panel {
+  width: 600px;
+}
