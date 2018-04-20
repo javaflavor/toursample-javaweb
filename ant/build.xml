@@ -72,6 +72,7 @@
             <fileset dir="${source.dir}">
                 <include name="**/*.xml" />
                 <include name="**/*.jrxml" />
+                <include name="**/*.sql" />
             </fileset>
         </copy>
     </target>

@@ -48,10 +48,18 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     -->
   </bean>
 
+  <!-- Flyway Migration Configuration -->
+  <bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
+    <property name="encoding" value="Shift_JIS" />
+    <property name="baselineOnMigrate" value="true" />
+    <property name="locations" value="classpath:db/migration" />
+    <property name="dataSource" ref="TerasolunaTourDataSource" />
+  </bean>
+
 <!-- ======================================== トランザクション・AOP定義 -->
   <!-- トランザクションマネージャの定義 -->
   <bean id="transactionManager"
-    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager" depends-on="flyway">
     <property name="dataSource" ref="TerasolunaTourDataSource"/>
   </bean>
 
@@ -92,7 +100,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 <!-- ======================================== iBATIS定義 -->
   <!-- SqlMap定義 -->
   <bean id="sqlMapClient"
-        class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        class="org.springframework.orm.ibatis.SqlMapClientFactoryBean" depends-on="flyway">
     <property name="configLocation" value="WEB-INF/sqlMapConfig.xml"/>
     <property name="dataSource" ref="TerasolunaTourDataSource"/>
   </bean>
@@ -386,7 +394,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
   <!-- CODE_009: 出発地コード -->
   <bean id="CODE_009"
         class="jp.terasoluna.fw.web.codelist.DBCodeListLoader"
-        init-method="load">
+        init-method="load" depends-on="flyway">
     <property name="dataSource" ref="TerasolunaTourDataSource"/>
     <property name="sql">
       <value>
@@ -404,7 +412,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
   <!-- CODE_010: 目的地コード -->
   <bean id="CODE_010"
         class="jp.terasoluna.fw.web.codelist.DBCodeListLoader"
-        init-method="load">
+        init-method="load" depends-on="flyway">
     <property name="dataSource" ref="TerasolunaTourDataSource"/>
     <property name="sql">
       <value>
