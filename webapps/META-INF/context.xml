@@ -49,7 +49,7 @@
      maxIdle="2"
      maxWait="5000"
      username="sample"
-     url="jdbc:postgresql://127.0.0.1:5432/teradb"
+     url="jdbc:postgresql://toursample-postgresql:5432/teradb"
      maxActive="4"/>
 </Context>
 
