@@ -35,7 +35,8 @@
 							<target>
 								<property name="additional_classpath" refid="maven.compile.classpath" />
 								<ant antfile="${basedir}/ant/build.xml" target="build" />
-								<move file="${basedir}/target/toursample-javaweb.war" tofile="${basedir}/target/ROOT.war"/>
+								<mkdir dir="${basedir}/target"/>
+								<copy file="${basedir}/toursample-javaweb.war" tofile="${basedir}/target/ROOT.war"/>
 							</target>
 						</configuration>
 					</execution>
@@ -65,4 +66,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>openshift</id>
+			<properties>
+				<openshift>true</openshift>
+			</properties>
+		</profile>
+	</profiles>
 </project>

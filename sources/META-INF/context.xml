@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+   - 「データベースがPostgreSQLの場合の設定」
+   - 【記述書式】
+   - driverClassName=[ドライバ名称]
+   - username=[データベースログイン名称]
+   - password=[データベースログインパスワード]
+   - url=jdbc:postgresql://[データベースサーバIPアドレス]:[ポート番号]/[データベース名称]
+   - 【設定例】
+ -->
+<Context>
+  <Resource
+     name="jdbc/terasolunaTourDataSource"
+     type="javax.sql.DataSource"
+     driverClassName="org.postgresql.Driver"
+     password="@db.password@"
+     maxIdle="2"
+     maxWait="5000"
+     username="@db.username@"
+     url="@db.url@"
+     maxActive="4"/>
+</Context>
+

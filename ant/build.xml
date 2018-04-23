@@ -7,7 +7,17 @@
     <!-- プロパティの読み込み -->
     <property file="./ant/build.properties" />
 
-    <!-- クラスパスの設定 -->
+	<!-- 環境毎のプロパティ設定の読み込み -->
+	<condition property="filterset" value="./ant/filterset-local.properties">
+		<not>
+			<equals arg1="${openshift}" arg2="true"/>
+		</not>
+	</condition>
+	<condition property="filterset" value="./ant/filterset-openshift.properties">
+			<equals arg1="${openshift}" arg2="true"/>
+	</condition>
+	
+   <!-- クラスパスの設定 -->
     <property name="classpath.lib" value="
         ${lib.dir}/antlr-2.7.6.jar;
         ${lib.dir}/aopalliance-1.0.jar;
@@ -56,6 +66,7 @@
           Warファイル、コンパイルされたクラスファイルの削除を行う。
        ================================= -->
     <target name="clean" description="war、クラスファイルの削除">
+        <delete file="${context.name}.war" failonerror="false" />
         <delete file="${deploy.dir}/${context.name}.war" failonerror="false" />
         <delete includeEmptyDirs="true" failonerror="false">
             <fileset dir="${web.inf.dir}/classes" includes="**/*" />
@@ -72,7 +83,14 @@
             <fileset dir="${source.dir}">
                 <include name="**/*.xml" />
                 <include name="**/*.jrxml" />
-                <include name="**/*.sql" />
+            	<include name="**/*.sql" />
+            </fileset>
+        </copy>
+    	<!-- Copy environment specific META-INF/context.xml -->
+        <copy todir="./webapps" filtering="true" overwrite="true">
+        	<filterset filtersfile="${filterset}"/>
+            <fileset dir="${source.dir}">
+            	<include name="META-INF/context.xml" />
             </fileset>
         </copy>
     </target>
@@ -90,10 +108,9 @@
     <!-- =================================
           ビルドする。
        ================================= -->
-    <target name="build" depends="compile, native2ascii" description="ビルド実行">
-    	<mkdir dir="${basedir}/target"/>
-        <delete file="${basedir}/target/${context.name}.war" failonerror="false" />
-        <jar jarfile="${basedir}/target/${context.name}.war" basedir="./webapps" />
+    <target name="build" depends="compile, native2ascii" description="ビルド実行" >
+        <delete file="${context.name}.war" failonerror="false" />
+        <jar jarfile="${context.name}.war" basedir="./webapps" />
     </target>
 
     <!-- =================================
@@ -101,7 +118,7 @@
        ================================= -->
     <target name="deploy" depends="build" description="デプロイ実行">
         <delete file="${deploy.dir}/${context.name}.war" failonerror="false" />
-        <copy file="${basedir}/target/${context.name}.war" todir="${deploy.dir}" />
+        <copy file="${context.name}.war" todir="${deploy.dir}" />
     </target>
 
     <!-- =================================
